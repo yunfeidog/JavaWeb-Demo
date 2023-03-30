@@ -1,0 +1,77 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.cxk</groupId>
+    <artifactId>JavaWeb</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>JDBC-Learning</module>
+        <module>Mybatis-Learning</module>
+        <module>HomeWork1</module>
+        <module>webApp</module>
+        <module>Spring-Learning</module>
+        <module>HomeWork1-Spring</module>
+        <module>Spring-Learning2</module>
+    </modules>
+    <version>1.0</version>
+    <name>JavaWeb Maven Webapp</name>
+
+    <!--    Java-->
+    <properties>
+        <java.version>17</java.version>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+    </properties>
+
+
+    <dependencies>
+        <!--测试-->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.9.2</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!--jdbc-->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.32</version>
+        </dependency>
+
+        <!--lombok-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.22</version>
+            <scope>provided</scope>
+        </dependency>
+
+
+
+
+    </dependencies>
+    <build>
+        <finalName>JavaWeb</finalName>
+        <!-- tomcat -->
+        <plugins>
+            <!--Tomcat插件 -->
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <port>8081</port><!--访问端口号 -->
+                    <!--项目访问路径
+                        未配置访问路径: http://localhost:80/tomcat-demo2/a.html
+                        配置/后访问路径: http://localhost:80/a.html
+                        如果配置成 /hello,访问路径会变成什么?
+                            答案: http://localhost:80/hello/a.html
+                    -->
+                    <path>/</path>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            background-color: #f5f5f5;
+        }
+
+        .column2 {
+            width: 20%;
+        }
+
+        .column3 {
+            width: 30%;
+        }
+
+        .column12-5 {
+            width: 12.5%;
+        }
+
+        .column6 {
+            width: 60%;
+        }
+
+        .column5 {
+            width: 50%;
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            background-color: rebeccapurple;
+        }
+
+        .top {
+            display: flex;
+            flex-direction: row;
+            height: 150px;
+            background-color: red;
+            align-items: center;
+        }
+
+        .second {
+            display: flex;
+            flex-direction: row;
+            height: 50px;
+        }
+
+        .third {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            height: 500px;
+            background-color: royalblue;
+
+        }
+
+        .login-register {
+            height: 100px;
+            background-color: cadetblue;
+        }
+
+        .nav {
+            height: 350px;
+            background-color: brown;
+        }
+
+        .count {
+            height: 50px;
+            background-color: rosybrown;
+        }
+
+        .news {
+            height: 150px;
+            background-color: aquamarine;
+        }
+
+        .link {
+            height: 350px;
+            background-color: azure;
+        }
+
+
+    </style>
+</head>
+<body>
+
+<button onclick="goRegister()">点击注册</button>
+<div class="content">
+    <div class="top">
+        <div class="logo column2">logo图标</div>
+        <div class="ad column6">旗帜广告</div>
+        <div class="contact column2">联系我们</div>
+    </div>
+    <div class="second ">
+        <div class="index column12-5">主页</div>
+        <div class=" c column12-5">1</div>
+        <div class="c column12-5">1</div>
+        <div class="c column12-5">1</div>
+        <div class="c column12-5">1</div>
+        <div class="c column12-5">1</div>
+        <div class="c column12-5">1</div>
+        <div class="back column12-5">返回</div>
+    </div>
+    <div class="third">
+        <div class="left column2">
+            <div class="login-register">用户登录注册</div>
+            <div class="nav">次导航栏</div>
+            <div class="count">网站计数</div>
+        </div>
+        <div class="middle column5">
+            <div class="home">主页新闻目录区</div>
+
+        </div>
+        <div class="right column3">
+            <div class="news">滚动新闻</div>
+            <div class="link">友情链接</div>
+
+        </div>
+    </div>
+    <div class="buttom">版权信息</div>
+</div>
+
+<script>
+    function goRegister() {
+        window.location.href = "/register.html";
+    }
+</script>
+
+</body>
+</html>

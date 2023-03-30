@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+    <style>
+
+        .checkmark {
+            display: inline-block;
+            line-height: 20px;
+            color: #4c4a4a;
+            font-size: 12px;
+        }
+
+    </style>
+</head>
+<body>
+<!--注册表单-->
+<form action="ServletRegister" method="post">
+    <table>
+        <tr>
+            <td>用户名：</td>
+            <td><input type="text" name="username" onblur="checkUsername()">
+                <div class="checkmark " id="username-check">可用户登录,6-16位字母或数字，以字母开头</div>
+            </td>
+        </tr>
+        <tr>
+            <td>昵称：</td>
+            <td><input type="text" name="nickname" onblur="checkNickname()">
+                <div class="checkmark " id="nickname-check">1-20个字符，可以由字母，数字，汉子组成，不能为空</div>
+            </td>
+        </tr>
+        <tr>
+            <td>密码：</td>
+            <td><input type="password" name="password" onblur="checkPassword()">
+                <div class="checkmark " id="password-check">6-16个字符组成，区分大小写</div>
+            </td>
+        </tr>
+        <tr>
+            <td>确认密码：</td>
+            <td><input type="password" name="repassword" onblur="checkRepassword()">
+                <div class="checkmark " id="repassword-check"></div>
+            </td>
+        </tr>
+
+        <tr>
+            <td>性别：</td>
+            <td>
+                <input type="radio" name="sex" value="男" checked/>男
+                <input type="radio" name="sex" value="女"/>女
+            </td>
+            <td class="checkmark " id="sex-check"></td>
+        </tr>
+
+        <tr>
+            <td>生日：</td>
+            <td><input type="date" name="birthday" onblur="checkBirthday()">
+                <div class="checkmark " id="birthday-check"></div>
+
+            </td>
+        </tr>
+
+        <tr>
+            <td>地区</td>
+            <td>
+                <select name="contry">
+                    <option value="中国">中国</option>
+                    <option value="美国">美国</option>
+                    <option value="英国">英国</option>
+                    <option value="法国">法国</option>
+                </select>
+                <select name="province">
+                    <option value="北京">北京</option>
+                    <option value="上海">上海</option>
+                    <option value="广东">广东</option>
+                    <option value="江苏">江苏</option>
+                </select>
+                <select name="city">
+                    <option value="北京">北京</option>
+                    <option value="上海">上海</option>
+                    <option value="广州">广州</option>
+                    <option value="南京">南京</option>
+                </select>
+
+            </td>
+            <td class="checkmark " id="area-check"></td>
+        </tr>
+
+        <tr>
+            <td>验证码：</td>
+            <td>
+                <input type="text" name="checkCode" onblur="checkCode()">
+                <img id="checkCodeImg" src="/servletCheckCode" alt="验证码">
+                <a href="#" id="changeImg" style="text-decoration: none;">看不清？</a>
+                <div class="checkmark " id="code-check"></div>
+
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" id="register" value="注册"></td>
+        </tr>
+    </table>
+</form>
+
+</body>
+
+<script>
+
+    document.getElementById("changeImg").onclick = function () {
+        //路径后面添加时间戳的目的是避免浏览器进行缓存静态资源
+        document.getElementById("checkCodeImg").src = "/servletCheckCode?" + new Date().getMilliseconds();
+    }
+
+    document.getElementById("checkCodeImg").onclick = function () {
+        //路径后面添加时间戳的目的是避免浏览器进行缓存静态资源
+        document.getElementById("checkCodeImg").src = "/servletCheckCode?" + new Date().getMilliseconds();
+    }
+
+    // 检查用户名是否合法
+
+    const usernameInput = document.querySelector('input[name="username"]')
+    const usernameCheck = document.getElementById('username-check')
+
+    function checkUsername() {
+        console.log(usernameInput.value)
+        const username = usernameInput.value
+        // 6-16位字母或数字，以字母开头
+        const reg = /^[a-zA-Z][a-zA-Z0-9]{5,15}$/
+        if (!reg.test(username)) {
+            usernameCheck.innerHTML = '✕ 用户名不合法,合法的用户名为6-16位字母或数字，以字母开头'
+            usernameCheck.style.color = 'red'
+            usernameInput.style.borderColor = 'red'
+        } else {
+            usernameCheck.innerHTML = '✔︎'
+            usernameCheck.style.color = 'green'
+            usernameInput.style.borderColor = 'green'
+        }
+    }
+
+    // 检查昵称是否合法
+    const nicknameInput = document.querySelector('input[name="nickname"]')
+    const nicknameCheck = document.getElementById('nickname-check')
+
+    function checkNickname() {
+        const nickname = nicknameInput.value
+        // 1-20个字符，可以由字母，数字，汉子组成，不能为空
+        if (nickname === '') {
+            nicknameCheck.innerHTML = 'x 昵称不能为空'
+            nicknameCheck.style.color = 'red'
+            nicknameInput.style.borderColor = 'red'
+            return
+        }
+        const reg = /^[\u4e00-\u9fa5_a-zA-Z0-9]{1,20}$/
+        if (!reg.test(nickname)) {
+            nicknameCheck.innerHTML = '✕ 昵称不合法,合法的昵称为1-20个字符，可以由字母，数字，汉子组成，不能为空'
+            nicknameCheck.style.color = 'red'
+            nicknameInput.style.borderColor = 'red'
+        } else {
+            nicknameCheck.innerHTML = '✔︎'
+            nicknameCheck.style.color = 'green'
+            nicknameInput.style.borderColor = 'green'
+        }
+    }
+
+    // 检查密码是否合法
+    const passwordInput = document.querySelector('input[name="password"]')
+    const passwordCheck = document.getElementById('password-check')
+
+    function checkPassword() {
+        const password = passwordInput.value
+        if (password.length < 6) {
+            passwordCheck.innerHTML = 'x 密码长度过短'
+            passwordCheck.style.color = 'red';
+            passwordInput.style.borderColor = 'red';
+            return
+        }
+        if (password.length > 16) {
+            passwordCheck.innerHTML = 'x 密码长度过长'
+            passwordCheck.style.color = 'red';
+            passwordInput.style.borderColor = 'red'
+            return;
+        }
+
+        passwordCheck.innerHTML = '✔︎'
+        passwordCheck.style.color = 'green'
+        passwordInput.style.borderColor = 'green'
+
+    }
+
+    // 检查确认密码是否合法
+    const repasswordInput = document.querySelector('input[name="repassword"]')
+    const repasswordCheck = document.getElementById('repassword-check')
+
+    function checkRepassword() {
+        const repassword = repasswordInput.value
+        if (repassword !== passwordInput.value) {
+            repasswordCheck.innerHTML = 'x 两次密码不一致'
+            repasswordCheck.style.color = 'red'
+            repasswordInput.style.borderColor = 'red'
+        } else {
+            repasswordCheck.innerHTML = '✔︎'
+            repasswordCheck.style.color = 'green'
+            repasswordInput.style.borderColor = 'green'
+        }
+    }
+
+    // 检查生日是否合法
+    const birthdayInput = document.querySelector('input[name="birthday"]')
+    const birthdayCheck = document.getElementById('birthday-check')
+
+    function checkBirthday() {
+        const birthday = birthdayInput.value
+        if (birthday === '') {
+            birthdayCheck.innerHTML = '✕ 生日不能为空'
+            birthdayCheck.style.color = 'red'
+            birthdayInput.style.borderColor = 'red'
+        } else {
+            birthdayCheck.innerHTML = '✔︎'
+            birthdayCheck.style.color = 'green'
+            birthdayInput.style.borderColor = 'green'
+        }
+    }
+
+    // 检查地区是否合法
+    const areaCheck = document.getElementById('area-check')
+
+    function checkArea() {
+        const contry = document.querySelector('select[name="contry"]').value
+        const province = document.querySelector('select[name="province"]').value
+        const city = document.querySelector('select[name="city"]').value
+        if (contry === '' || province === '' || city === '') {
+            areaCheck.innerHTML = '✕ 地区不能为空'
+            areaCheck.style.color = 'red'
+            document.querySelector('select[name="contry"]').style.borderColor = 'red'
+            document.querySelector('select[name="province"]').style.borderColor = 'red'
+            document.querySelector('select[name="city"]').style.borderColor = 'red'
+        } else {
+            areaCheck.innerHTML = '✔︎'
+            areaCheck.style.color = 'green'
+            document.querySelector('select[name="contry"]').style.borderColor = 'green'
+            document.querySelector('select[name="province"]').style.borderColor = 'green'
+            document.querySelector('select[name="city"]').style.borderColor = 'green'
+        }
+    }
+
+    // 检查验证码是否合法
+    const codeInput = document.querySelector('input[name="code"]')
+    const codeCheck = document.getElementById('code-check')
+
+    function checkCode() {
+        const code = codeInput.value
+        if (code === '') {
+            codeCheck.innerHTML = '✕ 验证码不能为空'
+            codeCheck.style.color = 'red'
+            codeInput.style.borderColor = 'red'
+        } else {
+            codeCheck.innerHTML = '✔︎'
+            codeCheck.style.color = 'green'
+            codeInput.style.borderColor = 'green'
+        }
+    }
+
+    // 检查所有输入是否合法
+    function checkAll() {
+        checkUsername()
+        checkNickname()
+        checkPassword()
+        checkRepassword()
+        checkBirthday()
+        checkArea()
+        checkCode()
+    }
+
+
+</script>
+
+
+<script>
+    //对输入信息进行及时验证
+
+
+</script>
+
+
+</html>

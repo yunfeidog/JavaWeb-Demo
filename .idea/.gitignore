@@ -1,0 +1,27 @@
+# 默认忽略的文件
+/shelf/
+/workspace.xml
+# 基于编辑器的 HTTP 客户端请求
+/httpRequests/
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
+
+# 排除所有 .idea 文件夹
+.idea/
+
+# 排除所有 .iml 文件
+*.iml
+
+# 排除所有的target文件夹
+target/
+
+# 排除所有的.class文件
+*.class
+
+# 排除所有的.jar文件
+*.jar
+
+# 排除所有的.war文件
+*.war
+

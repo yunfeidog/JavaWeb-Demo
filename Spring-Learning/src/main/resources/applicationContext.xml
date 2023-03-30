@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--bean标签标示配置bean,id属性标示给bean起名字,class属性表示给bean定义类型-->
+    <!--注意，id不能重复-->
+    <!--name:为bean指定别名，别名可以有多个，使用逗号，分号，空格进行分隔-->
+    <!--使用bean的scope属性可以控制bean的创建是否为单例：singleton默认为单例(默认，创建两次地址还是一样的),prototype为非单例-->
+    <!--init-method:指定bean的初始化方法-,destroy-method:指定bean的销毁方法-->
+    <bean id="bookDao" class="com.cxk.dao.impl.BookDaoImpl" name="bookDao2 bookDao3">
+        <constructor-arg name="username" value="dao蔡徐坤"/>
+        <constructor-arg name="id" value="999"/>
+    </bean>
+    <!--    <bean id="bookDao" class="com.cxk.dao.impl.BookDaoImpl" name="bookDao2 bookDao3" scope="singleton" init-method="init" destroy-method="destroy"/>-->
+
+    <bean id="bookService" class="com.cxk.service.impl.BookServiceImpl" name="bookService2">
+        <!--配置server与dao的关系-->
+        <!--property标签表示配置当前bean的属性, name属性表示配置哪一个具体的属性,ref属性表示参照哪一个bean-->
+        <!--name="bookDao"中bookDao的作用是让Spring的IOC容器在获取到名称后，将首字母大写，前面加set找对应的setBookDao()方法进行对象注入-->
+        <!--ref="bookDao"中bookDao的作用是让Spring能在IOC容器中找到id为bookDao的Bean对象给bookService进行注入-->
+        <property name="bookDao" ref="bookDao"/>
+
+
+        <!--setter注入简单基本类型，直接在value中写入值，会自动转换-->
+        <property name="username" value="蔡徐坤"/>
+        <property name="id" value="10086"/>
+
+        <!--构造器注入-->
+        <!--constructor-arg标签表示配置当前bean的构造器参数，index属性表示当前参数的索引，type属性表示当前参数的类型，value属性表示当前参数的值-->
+        <constructor-arg ref="userDao" name="userDao"/>
+    </bean>
+
+    <!--自动装配,根据属性的set方法进行自动装配,byType:根据类型进行自动装配,byName:根据名称进行自动装配-->
+<!--    <bean id="userService" class="com.cxk.service.impl.UserServiceImpl" autowire="byType"/>-->
+    <bean id="userService" class="com.cxk.service.impl.UserServiceImpl" autowire="byName"/>
+
+    <!--静态工厂实例化-->
+    <!--class为工厂类的全名，factory-mehod:具体工厂类中创建对象的方法名-->
+    <!--了解为主-->
+    <bean id="orderDao" class="com.cxk.factory.OrderDaoFactory" factory-method="getOrderDao"/>
+
+    <!--实例工厂-->
+    <bean id="userFactory" class="com.cxk.factory.UserDaoFactory"/>
+    <bean id="userDao" factory-bean="userFactory" factory-method="getUserDao"/>
+
+    <!--Spring的factroyBean方式-->
+    <bean id="userDao2" class="com.cxk.factory.UserDaoFactoryBean"/>
+
+</beans>
